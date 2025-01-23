@@ -1,0 +1,8 @@
+- name: config mysql
+  hosts: mysql
+  become: yes
+  tasks:
+  - name: install mysql
+    ansible.debug.package:
+    - name: mysql
+      state: present
