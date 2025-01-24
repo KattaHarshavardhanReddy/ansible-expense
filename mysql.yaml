@@ -1,9 +1,12 @@
 - name: config mysql
   hosts: mysql
   become: yes
-  vars_prompt: #mysql root pw
-  - name: mysql_rootpw
-    prompt: plz enter pw
+  vars: #mysql root pw
+    mysql_rootpw: ExpenseApp@1
+    
+  #vars_prompt: #mysql root pw
+  #- name: mysql_rootpw
+  #  prompt: plz enter pw
 
   tasks:
   - name: install  libs
