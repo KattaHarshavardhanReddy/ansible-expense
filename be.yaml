@@ -10,8 +10,11 @@
 
   - name: install node js
     ansible.builtin.package: 
-      name: nodejs 
+      name: "{{ item }}" 
       state: installed
+    loop:
+    - nodejs
+    - mysql
 
   - name: add user
     ansible.builtin.user:
@@ -50,7 +53,7 @@
   - name: install  libs
     ansible.builtin.pip:
       name: cryptography
-      
+
 
   - name: import mysql data
     community.mysql.mysql_db:
