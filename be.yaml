@@ -10,3 +10,7 @@
 
   - name: install node js
     ansible.builtin.command: dnf install nodejs -y
+
+  - name: add user
+    ansible.builtin.user:
+      name: expense
