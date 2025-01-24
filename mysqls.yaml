@@ -1,0 +1,47 @@
+- name: config mysql
+  hosts: mysql
+  become: yes
+  #vars: #mysql root pw
+   # mysql_rootpw: ExpenseApp@1
+    
+  vars_prompt: #mysql root pw
+  - name: mysql_rootpw
+    prompt: plz enter pw
+
+  tasks:
+  - name: install  libs
+    ansible.builtin.pip:
+      name: PyMySQL
+      executable: pip3.9 
+
+  - name: install  libs
+    ansible.builtin.pip:
+      name: cryptography
+
+
+  - name: install mysql
+    ansible.builtin.package:
+      name: mysql-server
+      state: installed
+
+  - name: start and enable sql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
+
+  - name: connect to mysql server
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: "{{ mysql_rootpw }}"
+      login_host: mysql.katta.blog
+    register: mysql_info
+    ignore_errors: true
+
+  - name: print the output
+    ansible.builtin.debug:
+      msg: "mysql info {{ mysql_info }}"
+
+  - name: set root password
+    ansible.builtin.shell: "mysql_secure_installation --set-root-pass {{ mysql_rootpw }}"
+    when: mysql_info.failed is true
