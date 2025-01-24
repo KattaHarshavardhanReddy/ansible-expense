@@ -45,3 +45,7 @@
   - name: set root password
     ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_rootpw }}"
     when: mysql_info.failed is true
+
+  - name: add user
+    ansible.builtin.user:
+      name: expense
