@@ -1,7 +1,7 @@
 - name: config mysql
   hosts: mysql
   become: yes
-  _prompt: #mysql root pw
+  vars_prompt: #mysql root pw
   - name: mysql_rootpw
     prompt: plz enter pw
 
