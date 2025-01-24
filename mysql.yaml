@@ -1,7 +1,7 @@
 - name: config mysql
   hosts: mysql
   become: yes
-  var: #mysql root pw
+  vars: #mysql root pw
     mysql_rootpw: ExpenseApp@1
 
   tasks:
